@@ -2,10 +2,8 @@ import App.EntityManager;
 import Domain.Entities.*;
 import Domain.Services.TransactionService;
 import Infra.Data.FileDatabase;
-import Interfaces.Console.Menu.BuyScreen;
-import Interfaces.Console.Menu.ExitScreen;
-import Interfaces.Console.Menu.LoginScreen;
-import Interfaces.Console.Menu.MenuScreen;
+import Interfaces.Console.Menu.*;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -26,8 +24,7 @@ public class Machine {
     public static void MainScreen(){
         int select;
         do {
-            select = screenSelection();
-
+            select = MenuScreen.screenSelection();
             switch (select){
                 case 1:
                     Menu();
@@ -36,6 +33,9 @@ public class Machine {
                     Login();
                     break;
                 case 3:
+                    Register();
+                    break;
+                case 4:
                     ExitScreen exitScreen = new ExitScreen();
             }
 
@@ -43,46 +43,23 @@ public class Machine {
 
     }
 
-    public static int screenLogined(){
-        Scanner scanner = new Scanner(System.in);
-        int select;
 
-        System.out.println("1.  Menu");
-        System.out.println("2.  See account balances");
-        System.out.println("3.  See cart");
-        System.out.println("4.  Buy");
-        System.out.println("5.  Exit");
-        System.out.print("Enter select(1-5) : ");
-        select = scanner.nextInt();
-
-        while (select < 1 && select > 5){
-            System.out.print("Enter select(1-5) : ");
-            select = scanner.nextInt();
-            continue;
-        }
-        return select;
+    public static void Register(){
+        RegisterScreen registerScreen = new RegisterScreen();
+        Account tempAccount;
+        do {
+            tempAccount = registerScreen.register();
+        }while (tempAccount.existsAccount(accounts) >= 0);
+        accounts = entityManager.readAccountCollections();
+        account.setId(accounts.size());
+        accounts.add(account);
+        entityManager.saveAccountCollections(account);
     }
 
-    public static int screenSelection(){
-        Scanner scanner = new Scanner(System.in);
-        int select ;
-
-        System.out.println("1.  Menu");
-        System.out.println("2.  Login");
-        System.out.println("3.  Exit");
-        System.out.print("Enter select(1-3) : ");
-        select = scanner.nextInt();
-
-        while (select < 1 || select > 3){
-            System.out.print("Enter select(1-3) : ");
-            select = scanner.nextInt();
-        }
-        return select;
-    }
 
     public static void Menu(){
         MenuScreen menuScreen = new MenuScreen(pos);
-        menuScreen.displayItems();
+        menuScreen.displayOnScreen();
     }
 
     public static void Login(){
@@ -93,7 +70,7 @@ public class Machine {
         } while(usingAccount < 0);
         int select;
         do {
-            select = screenLogined();
+            select = loginScreen.screenLogined();
             switch (select) {
                 case 1:
                     Menu();
@@ -172,7 +149,9 @@ public class Machine {
             pos.addItem(posItem);
         }
         return pos;
+
     }
+
 
     public static void initAccount(){
 

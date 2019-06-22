@@ -1,63 +1,34 @@
 package Interfaces.Console.Menu;
 
-import Domain.Entities.Account;
 import Domain.Entities.POS;
-import Domain.Entities.POSItem;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MenuScreen extends AbstractScreen {
     private POS pos;
-    private ArrayList<Account> accounts;
     public MenuScreen(POS pos) {
         this.pos = pos;
     }
 
-    public POS getPos() {
-        return pos;
-    }
-
-    public void setPos(POS pos) {
-        this.pos = pos;
-    }
-
-    public ArrayList<Account> getAccounts() {
-        return accounts;
-    }
-
-    public void setAccounts(ArrayList<Account> accounts) {
-        this.accounts = accounts;
-    }
-
     public void displayOnScreen(){
-        displayItems();
+        pos.displayItems();
     }
 
-    public void displayItems(){
-        ArrayList<POSItem> posItems = pos.getItems();
-        int totalItems = posItems.size();
-        for(int i=0; i<totalItems; i++){
-            System.out.println("------------------------");
-            POSItem posItem = posItems.get(i);
-            System.out.println("\tID: "+posItem.getProduct().getId());
-            System.out.println("\tName: "+posItem.getProduct().getName());
-            System.out.println("\tPrice: "+posItem.getProduct().getPrice());
-            System.out.println("\tAmount "+posItem.getQuantity());
-            System.out.println("------------------------");
+    public static int screenSelection(){
+        Scanner scanner = new Scanner(System.in);
+        int select ;
+
+        System.out.println("1.  Menu");
+        System.out.println("2.  Login");
+        System.out.println("3.  Exit");
+        System.out.print("Enter select(1-3) : ");
+        select = scanner.nextInt();
+
+        while (select < 1 || select > 3){
+            System.out.print("Enter select(1-3) : ");
+            select = scanner.nextInt();
         }
+        return select;
     }
-
-    public void displayAccounts(){
-        accounts.forEach((account) -> {
-            System.out.println("------------------------");
-            System.out.println("\tID: "+account.getId());
-            System.out.println("\tEmail: "+account.getEmail());
-            System.out.println("\tPassword: "+account.getPassword());
-            System.out.println("\tBalance: "+account.getBalance());
-            System.out.println("------------------------");
-        });
-    }
-
 
 }

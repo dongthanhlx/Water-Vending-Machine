@@ -22,4 +22,26 @@ public class LoginScreen extends AbstractScreen{
         account.setPassword(scanner.nextLine());
         return account;
     }
+
+    public int screenLogined() {
+        Scanner scanner = new Scanner(System.in);
+        int select;
+
+        System.out.println("1.  Menu");
+        System.out.println("2.  See account balances");
+        System.out.println("3.  See cart");
+        System.out.println("4.  Buy");
+        System.out.println("5.  Exit");
+        System.out.print("Enter select(1-5) : ");
+        select = scanner.nextInt();
+
+        while (select < 1 && select > 5) {
+            System.out.print("Enter select(1-5) : ");
+            select = scanner.nextInt();
+            continue;
+        }
+        return select;
+    }
+
+
 }

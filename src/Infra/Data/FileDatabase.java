@@ -23,6 +23,22 @@ public class FileDatabase extends ObjectPersistence {
         this.dataDirectoryAccount = dataAccount;
     }
 
+    public String getDataDirectoryPOS() {
+        return dataDirectoryPOS;
+    }
+
+    public void setDataDirectoryPOS(String dataDirectoryPOS) {
+        this.dataDirectoryPOS = dataDirectoryPOS;
+    }
+
+    public String getDataDirectoryAccount() {
+        return dataDirectoryAccount;
+    }
+
+    public void setDataDirectoryAccount(String dataDirectoryAccount) {
+        this.dataDirectoryAccount = dataDirectoryAccount;
+    }
+
     @Override
     public void savePOS(POS pos) {
         try (FileOutputStream fos = new FileOutputStream(dataDirectoryPOS);

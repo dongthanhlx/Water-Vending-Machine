@@ -5,10 +5,10 @@ import Domain.Entities.Account;
 import Domain.Entities.POS;
 import Infra.Data.ObjectPersistence;
 
-import java.io.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class EntityManager {
+public class EntityManager implements Serializable {
     protected ObjectPersistence objectPersistene;
 
     public EntityManager(ObjectPersistence objectPersistene) {

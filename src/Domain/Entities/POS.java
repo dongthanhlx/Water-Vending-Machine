@@ -34,6 +34,21 @@ public class POS {
         return items.size();
     }
 
+
+    public void displayItems(){
+        int totalItems = items.size();
+        for(int i=0; i<totalItems; i++){
+            System.out.println("------------------------");
+            POSItem posItem = items.get(i);
+            System.out.println("\tID: "+posItem.getProduct().getId());
+            System.out.println("\tName: "+posItem.getProduct().getName());
+            System.out.println("\tPrice: "+posItem.getProduct().getPrice());
+            System.out.println("\tAmount "+posItem.getQuantity());
+            System.out.println("------------------------");
+        }
+    }
+
+
     public boolean removeItems(Cart cart) {
         ArrayList<BuyItem> buyItems = cart.getBuyItems();
         int numberBuyItems = buyItems.size();
