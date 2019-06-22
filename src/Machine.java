@@ -9,11 +9,11 @@ import java.util.Scanner;
 
 public class Machine {
     private static POS pos = new POS("may ban nuoc");
-    private static ArrayList<Account> accounts ;
-    private static Account account;
+    private static ArrayList<Account> accounts;
+    private static Account account = new Account() ;
     private static Cart cart = new Cart();
-    private static String dataDirectoryPOS = "D:/POS/POS.json";
-    private static String dataDirectoryAccount = "D:/POS/Account.json";
+    private static String dataDirectoryPOS = "data/pos.json";
+    private static String dataDirectoryAccount = "data/account.json";
     private static EntityManager entityManager = new EntityManager(new FileDatabase(dataDirectoryPOS, dataDirectoryAccount));
     private static int usingAccount ;
     public static void main(String []args){
@@ -25,6 +25,7 @@ public class Machine {
         int select;
         do {
             select = MenuScreen.screenSelection();
+
             switch (select){
                 case 1:
                     Menu();
@@ -39,21 +40,31 @@ public class Machine {
                     ExitScreen exitScreen = new ExitScreen();
             }
 
-        }while (select == 1 || select == 2);
-
+        }while (select != 4);
     }
 
 
     public static void Register(){
         RegisterScreen registerScreen = new RegisterScreen();
+        accounts = entityManager.readAccountCollections();
+
         Account tempAccount;
         do {
             tempAccount = registerScreen.register();
         }while (tempAccount.existsAccount(accounts) >= 0);
-        accounts = entityManager.readAccountCollections();
-        account.setId(accounts.size());
-        accounts.add(account);
-        entityManager.saveAccountCollections(account);
+
+        int numberAccount;
+        if (accounts == null)   {
+            numberAccount = 0;
+            accounts = new ArrayList<>();
+        }
+        else numberAccount = accounts.size();
+
+        tempAccount.setId(numberAccount);
+        accounts.add(tempAccount);
+//        ArrayList<Account> tempAccounts = new ArrayList<>();
+//        tempAccounts.add(tempAccount);
+        entityManager.saveAccountCollections(accounts);
     }
 
 
@@ -99,6 +110,7 @@ public class Machine {
             TransactionService transactionService = new TransactionService();
             checkTransaction = transactionService.transactionItems(accounts.get(usingAccount), pos, cart);
         }while(!checkTransaction);
+        cart = new Cart();
     }
 
     public static void load(){
@@ -110,22 +122,20 @@ public class Machine {
     public static void loadPOS(){
         pos = entityManager.readPOSCollections();
         if (pos == null){
-            initPOS();
+            pos = initPOS();
         }
     }
 
     public static void loadAccount(){
         accounts = entityManager.readAccountCollections();
-        if(accounts == null){
-            initAccount();
-        }
     }
 
     public static POS initPOS() {
+        POS initPOS = new POS();
         Scanner scanner = new Scanner(System.in);
         System.out.println("\t---------SET POS---------");
         System.out.print("Name POS: ");
-        pos.setName(scanner.nextLine());
+        initPOS.setName(scanner.nextLine());
         System.out.println("Add Item");
         String nameProduct = "";
         for (int i=0; i<4; i++){
@@ -146,14 +156,8 @@ public class Machine {
             POSItem posItem = new POSItem(product);
             System.out.print("Amount: ");
             posItem.setQuantity(scanner.nextInt());
-            pos.addItem(posItem);
+            initPOS.addItem(posItem);
         }
-        return pos;
-
-    }
-
-
-    public static void initAccount(){
-
+        return initPOS;
     }
 }

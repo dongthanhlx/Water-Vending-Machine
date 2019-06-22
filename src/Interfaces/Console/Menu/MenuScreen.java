@@ -20,12 +20,13 @@ public class MenuScreen extends AbstractScreen {
 
         System.out.println("1.  Menu");
         System.out.println("2.  Login");
-        System.out.println("3.  Exit");
-        System.out.print("Enter select(1-3) : ");
+        System.out.println("3.  Register");
+        System.out.println("4.  Exit");
+        System.out.print("Enter select(1-4) : ");
         select = scanner.nextInt();
 
-        while (select < 1 || select > 3){
-            System.out.print("Enter select(1-3) : ");
+        while (select < 1 || select > 4){
+            System.out.print("Enter select(1-4) : ");
             select = scanner.nextInt();
         }
         return select;

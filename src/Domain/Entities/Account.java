@@ -1,13 +1,13 @@
 package Domain.Entities;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Account extends AbstractEntity {
+public class Account extends AbstractEntity implements Serializable {
     protected int id;
     protected String email;
     protected String password;
     protected double balance;
-
 
 
     public String getEmail() {
@@ -43,6 +43,8 @@ public class Account extends AbstractEntity {
     }
 
     public int existsAccount(ArrayList<Account> accounts){
+        if (accounts == null || accounts.size() == 0)   return -1;
+        System.out.println("------------------"+accounts.get(0).getPassword());
         int numberAccount = accounts.size();
         for(int i=0; i<numberAccount; i++){
             Account tempAccount = accounts.get(i);

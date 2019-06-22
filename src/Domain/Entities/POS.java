@@ -1,10 +1,13 @@
 package Domain.Entities;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class POS {
+public class POS implements Serializable {
     private String name;
     private ArrayList<POSItem> items = new ArrayList<>();
+
+    public POS(){}
 
     public POS(String name) {
         this.name = name;
@@ -53,12 +56,13 @@ public class POS {
         ArrayList<BuyItem> buyItems = cart.getBuyItems();
         int numberBuyItems = buyItems.size();
         int numberItemsInPOS = items.size();
+
         for (int i = 0; i < numberBuyItems; i++) {
             BuyItem buyItem = buyItems.get(i);
             for (int j = 0; j < numberItemsInPOS; j++) {
                 POSItem posItem = items.get(j);
                 if (posItem.getProduct().getId() == buyItem.getProduct().getId()) {
-                    double balanceItemsInPOS = posItem.getQuantity() - buyItem.getCount();
+                    int balanceItemsInPOS = posItem.getQuantity() - buyItem.getCount();
                     if (balanceItemsInPOS >= 0) {
                         items.get(j).setQuantity(balanceItemsInPOS);
                     } else {

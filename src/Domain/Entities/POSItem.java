@@ -2,7 +2,7 @@ package Domain.Entities;
 
 public class POSItem {
     protected Product product;
-    protected double quantity;
+    protected int quantity;
 
     public POSItem(){}
 
@@ -11,7 +11,7 @@ public class POSItem {
         product = new Product();
     }
 
-    public POSItem(Product _product, double _quantity) {
+    public POSItem(Product _product, int _quantity) {
         this.product = _product;
         this.quantity = _quantity;
     }
@@ -24,11 +24,11 @@ public class POSItem {
         this.product = _product;
     }
 
-    public double getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(double _quantity) {
+    public void setQuantity(int _quantity) {
         this.quantity = _quantity;
     }
 }

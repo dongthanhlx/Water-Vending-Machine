@@ -17,7 +17,7 @@ public class MySqlDatabase extends ObjectPersistence {
     }
 
     @Override
-    public void saveAccount(Account account) {
+    public void saveAccount(ArrayList<Account> account) {
 
     }
 

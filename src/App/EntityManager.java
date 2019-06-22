@@ -5,10 +5,9 @@ import Domain.Entities.Account;
 import Domain.Entities.POS;
 import Infra.Data.ObjectPersistence;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
-public class EntityManager implements Serializable {
+public class EntityManager{
     protected ObjectPersistence objectPersistene;
 
     public EntityManager(ObjectPersistence objectPersistene) {
@@ -20,7 +19,7 @@ public class EntityManager implements Serializable {
         this.objectPersistene.savePOS(pos);
     }
 
-    public void saveAccountCollections(Account account){
+    public void saveAccountCollections(ArrayList<Account> account){
         this.objectPersistene.saveAccount(account);
     }
 
