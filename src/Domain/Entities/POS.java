@@ -52,25 +52,18 @@ public class POS implements Serializable {
     }
 
 
-    public boolean removeItems(Cart cart) {
-        ArrayList<BuyItem> buyItems = cart.getBuyItems();
-        int numberBuyItems = buyItems.size();
+    public void removeItems(Product product, int amount){
         int numberItemsInPOS = items.size();
 
-        for (int i = 0; i < numberBuyItems; i++) {
-            BuyItem buyItem = buyItems.get(i);
-            for (int j = 0; j < numberItemsInPOS; j++) {
-                POSItem posItem = items.get(j);
-                if (posItem.getProduct().getId() == buyItem.getProduct().getId()) {
-                    int balanceItemsInPOS = posItem.getQuantity() - buyItem.getCount();
-                    if (balanceItemsInPOS >= 0) {
-                        items.get(j).setQuantity(balanceItemsInPOS);
-                    } else {
-                        return false;
-                    }
-                }
+        for (int i=0; i<numberItemsInPOS; i++){
+            POSItem posItem = items.get(i);
+
+            if(posItem.getProduct().getId() == product.getId()){
+                int balanceItemInPOS = posItem.getQuantity() - amount;
+                items.get(i).setQuantity(balanceItemInPOS);
             }
+
         }
-        return true;
+
     }
 }

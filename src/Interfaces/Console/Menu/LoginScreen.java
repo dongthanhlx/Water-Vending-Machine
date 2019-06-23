@@ -13,17 +13,18 @@ public class LoginScreen extends AbstractScreen{
     }
 
     public Account AccountInfo(){
-        Scanner scanner = new Scanner(System.in);
+        Scanner scanner     = new Scanner(System.in);
+
         System.out.print("Email: ");
-        String email = scanner.nextLine();
-        System.out.println(email);
-        account.setEmail(email);
+        account.setEmail(scanner.nextLine());
+
         System.out.print("Password: ");
         account.setPassword(scanner.nextLine());
+
         return account;
     }
 
-    public int screenLogined() {
+    public int screenAfterLogin() {
         Scanner scanner = new Scanner(System.in);
         int select;
 
@@ -33,6 +34,7 @@ public class LoginScreen extends AbstractScreen{
         System.out.println("4.  Buy");
         System.out.println("5.  Exit");
         System.out.print("Enter select(1-5) : ");
+
         select = scanner.nextInt();
 
         while (select < 1 && select > 5) {
@@ -40,8 +42,7 @@ public class LoginScreen extends AbstractScreen{
             select = scanner.nextInt();
             continue;
         }
+
         return select;
     }
-
-
 }

@@ -29,6 +29,7 @@ public class MenuScreen extends AbstractScreen {
             System.out.print("Enter select(1-4) : ");
             select = scanner.nextInt();
         }
+
         return select;
     }
 

@@ -8,7 +8,7 @@ public class Account extends AbstractEntity implements Serializable {
     protected String email;
     protected String password;
     protected double balance;
-
+    protected Cart cart = new Cart();
 
     public String getEmail() {
         return email;
@@ -42,9 +42,16 @@ public class Account extends AbstractEntity implements Serializable {
         this.balance = balance;
     }
 
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void addItem(BuyItem buyItem){
+        cart.addItem(buyItem);
+    }
+
     public int existsAccount(ArrayList<Account> accounts){
         if (accounts == null || accounts.size() == 0)   return -1;
-        System.out.println("------------------"+accounts.get(0).getPassword());
         int numberAccount = accounts.size();
         for(int i=0; i<numberAccount; i++){
             Account tempAccount = accounts.get(i);

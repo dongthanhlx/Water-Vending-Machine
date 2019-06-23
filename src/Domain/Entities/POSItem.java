@@ -1,6 +1,8 @@
 package Domain.Entities;
 
-public class POSItem {
+import java.io.Serializable;
+
+public class POSItem implements Serializable {
     protected Product product;
     protected int quantity;
 

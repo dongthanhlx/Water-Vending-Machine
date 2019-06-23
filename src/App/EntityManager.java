@@ -19,8 +19,8 @@ public class EntityManager{
         this.objectPersistene.savePOS(pos);
     }
 
-    public void saveAccountCollections(ArrayList<Account> account){
-        this.objectPersistene.saveAccount(account);
+    public void saveAccountCollections(ArrayList<Account> accounts){
+        this.objectPersistene.saveAccount(accounts);
     }
 
     public POS readPOSCollections(){

@@ -1,8 +1,9 @@
 package Domain.Entities;
 
-import java.util.ArrayList;
 
-public class BuyItem {
+import java.io.Serializable;
+
+public class BuyItem implements Serializable {
     private Product product;
     private int count;
 

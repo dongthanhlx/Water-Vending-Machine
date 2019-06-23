@@ -1,6 +1,6 @@
 import App.EntityManager;
 import Domain.Entities.*;
-import Domain.Services.TransactionService;
+import Domain.Services.POSService;
 import Infra.Data.FileDatabase;
 import Interfaces.Console.Menu.*;
 
@@ -62,8 +62,6 @@ public class Machine {
 
         tempAccount.setId(numberAccount);
         accounts.add(tempAccount);
-//        ArrayList<Account> tempAccounts = new ArrayList<>();
-//        tempAccounts.add(tempAccount);
         entityManager.saveAccountCollections(accounts);
     }
 
@@ -79,18 +77,19 @@ public class Machine {
             account = loginScreen.AccountInfo();
             usingAccount = account.existsAccount(accounts);
         } while(usingAccount < 0);
+        account = accounts.get(usingAccount);
         int select;
         do {
-            select = loginScreen.screenLogined();
+            select = loginScreen.screenAfterLogin();
             switch (select) {
                 case 1:
                     Menu();
                     break;
                 case 2:
-                    accounts.get(usingAccount).seeBalances();
+                    account.seeBalances();
                     break;
                 case 3:
-                    cart.seeItems();
+                    account.getCart().seeItems();
                     break;
                 case 4:
                     executeBuy();
@@ -102,15 +101,16 @@ public class Machine {
     }
 
     public static void executeBuy(){
-        boolean checkTransaction;
-        do {
-            BuyScreen buyScreen = new BuyScreen(pos, cart);
-            buyScreen.displayOnScreen();
+        BuyScreen buyScreen = new BuyScreen(pos, account);
+        buyScreen.displayOnScreen();
+        try {
+            POSService posService = new POSService();
+            posService.sell(pos, account, buyScreen.getBuyItem().getProduct(), buyScreen.getBuyItem().getCount());
+        } catch (Exception e){
 
-            TransactionService transactionService = new TransactionService();
-            checkTransaction = transactionService.transactionItems(accounts.get(usingAccount), pos, cart);
-        }while(!checkTransaction);
-        cart = new Cart();
+        }
+        entityManager.savePOSCollections(pos);
+        entityManager.saveAccountCollections(accounts);
     }
 
     public static void load(){
@@ -123,6 +123,7 @@ public class Machine {
         pos = entityManager.readPOSCollections();
         if (pos == null){
             pos = initPOS();
+            entityManager.savePOSCollections(pos);
         }
     }
 
