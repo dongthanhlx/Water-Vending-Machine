@@ -1,33 +1,21 @@
 package App;
 
-
-import Domain.Entities.Account;
-import Domain.Entities.POS;
 import Infra.Data.ObjectPersistence;
 
-import java.util.ArrayList;
+import java.util.List;
 
-public class EntityManager{
-    protected ObjectPersistence objectPersistene;
+public class EntityManager<T> {
+    protected ObjectPersistence objectPersistence;
 
-    public EntityManager(ObjectPersistence objectPersistene) {
-        this.objectPersistene = objectPersistene;
+    public EntityManager(ObjectPersistence objectPersistence) {
+        this.objectPersistence = objectPersistence;
     }
 
-    public void savePOSCollections(POS pos)
-    {
-        this.objectPersistene.savePOS(pos);
+    public void write(Class<T> className, List<T> objects) {
+        this.objectPersistence.write(className, objects);
     }
 
-    public void saveAccountCollections(ArrayList<Account> accounts){
-        this.objectPersistene.saveAccount(accounts);
-    }
-
-    public POS readPOSCollections(){
-        return this.objectPersistene.readObjectPOS();
-    }
-
-    public ArrayList<Account> readAccountCollections(){
-            return this.objectPersistene.readObjectAccount();
+    public List<T> read(Class<T> className) {
+        return this.objectPersistence.read(className);
     }
 }

@@ -1,93 +1,54 @@
 package Infra.Data;
 
-import Domain.Entities.*;
 
 
 import java.io.*;
-import java.util.ArrayList;
+import java.util.List;
 
-public class FileDatabase extends ObjectPersistence {
+public class FileDatabase<T> extends ObjectPersistence<T> {
 
-    private String dataDirectoryPOS;
-    private String dataDirectoryAccount;
+    private String dataPath;
 
-    public FileDatabase(String dataPOS, String dataAccount)
-    {
-        this.dataDirectoryPOS = dataPOS;
-        this.dataDirectoryAccount = dataAccount;
+    public FileDatabase(String dataPath) {
+        this.dataPath = dataPath;
     }
 
-    public String getDataDirectoryPOS() {
-        return dataDirectoryPOS;
-    }
-
-    public void setDataDirectoryPOS(String dataDirectoryPOS) {
-        this.dataDirectoryPOS = dataDirectoryPOS;
-    }
-
-    public String getDataDirectoryAccount() {
-        return dataDirectoryAccount;
-    }
-
-    public void setDataDirectoryAccount(String dataDirectoryAccount) {
-        this.dataDirectoryAccount = dataDirectoryAccount;
+    private String makeDir(String className){
+        return this.dataPath + '/' + className.toLowerCase() + ".dat";
     }
 
     @Override
-    public void savePOS(POS pos) {
-        try (FileOutputStream fos = new FileOutputStream(dataDirectoryPOS);
-             ObjectOutputStream oos = new ObjectOutputStream(fos)){
-            oos.writeObject(pos);
-        } catch (IOException e){
-            e.printStackTrace();
-        }
-    }
-
-
-    @Override
-    public POS readObjectPOS(){
-        POS pos = new POS();
+    public void write(Class<T> className, List<T> objects) {
+        String absoluteDirectory = this.makeDir(className.getSimpleName());
         try {
-            FileInputStream fis = new FileInputStream(dataDirectoryPOS);
-            if(fis.available() <= 0) return null;
-            ObjectInputStream ois = new ObjectInputStream(fis);
-            pos = (POS) ois.readObject();
-            ois.close();
-            fis.close();
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-        return pos;
-    }
-
-    @Override
-    public void saveAccount(ArrayList<Account> accounts) {
-        try {
-            FileOutputStream fos = new FileOutputStream(dataDirectoryAccount);
+            FileOutputStream fos = new FileOutputStream(absoluteDirectory);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(accounts);
+            oos.writeObject(objects);
             oos.close();
             fos.close();
-        } catch (IOException e){
+        } catch (Exception e){
+            System.out.println("Fail write file");
             e.printStackTrace();
         }
     }
 
-
-
     @Override
-    public ArrayList<Account> readObjectAccount() {
-        ArrayList<Account> accounts = new ArrayList<Account>();
+    public List<T> read(Class<T> className) {
+        String absoluteDirectory = this.makeDir(className.getSimpleName());
+        System.out.println(absoluteDirectory);
+        List<T> objects = null;
         try {
-            FileInputStream fis = new FileInputStream(dataDirectoryAccount);
+            FileInputStream fis = new FileInputStream(absoluteDirectory);
             if(fis.available() <= 0)    return null;
             ObjectInputStream ois = new ObjectInputStream(fis);
-            accounts = (ArrayList) ois.readObject();
+            objects = (List<T>) ois.readObject();
             ois.close();
             fis.close();
         } catch (Exception e){
+            System.out.println("Fail read file");
             e.printStackTrace();
         }
-        return accounts;
+        return objects;
     }
+
 }

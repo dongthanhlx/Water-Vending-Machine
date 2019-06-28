@@ -2,6 +2,7 @@ package Domain.Entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Account extends AbstractEntity implements Serializable {
     protected int id;
@@ -42,6 +43,10 @@ public class Account extends AbstractEntity implements Serializable {
         this.balance = balance;
     }
 
+    public void setCart(Cart cart) {
+        this.cart = cart;
+    }
+
     public Cart getCart() {
         return cart;
     }
@@ -50,7 +55,7 @@ public class Account extends AbstractEntity implements Serializable {
         cart.addItem(buyItem);
     }
 
-    public int existsAccount(ArrayList<Account> accounts){
+    public int existsAccount(List<Account> accounts){
         if (accounts == null || accounts.size() == 0)   return -1;
         int numberAccount = accounts.size();
         for(int i=0; i<numberAccount; i++){

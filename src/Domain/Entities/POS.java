@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class POS implements Serializable {
+    private int id;
     private String name;
     private ArrayList<POSItem> items = new ArrayList<>();
 
@@ -11,6 +12,14 @@ public class POS implements Serializable {
 
     public POS(String name) {
         this.name = name;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -37,21 +46,6 @@ public class POS implements Serializable {
         return items.size();
     }
 
-
-    public void displayItems(){
-        int totalItems = items.size();
-        for(int i=0; i<totalItems; i++){
-            System.out.println("------------------------");
-            POSItem posItem = items.get(i);
-            System.out.println("\tID: "+posItem.getProduct().getId());
-            System.out.println("\tName: "+posItem.getProduct().getName());
-            System.out.println("\tPrice: "+posItem.getProduct().getPrice());
-            System.out.println("\tAmount "+posItem.getQuantity());
-            System.out.println("------------------------");
-        }
-    }
-
-
     public void removeItems(Product product, int amount){
         int numberItemsInPOS = items.size();
 
@@ -66,4 +60,5 @@ public class POS implements Serializable {
         }
 
     }
+
 }
