@@ -1,7 +1,6 @@
 package Domain.Entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Account extends AbstractEntity implements Serializable {

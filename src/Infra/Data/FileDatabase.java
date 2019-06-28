@@ -13,7 +13,7 @@ public class FileDatabase<T> extends ObjectPersistence<T> {
         this.dataPath = dataPath;
     }
 
-    private String makeDir(String className){
+    private String makeDir(String className) {
         return this.dataPath + '/' + className.toLowerCase() + ".dat";
     }
 
@@ -26,7 +26,7 @@ public class FileDatabase<T> extends ObjectPersistence<T> {
             oos.writeObject(objects);
             oos.close();
             fos.close();
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Fail write file");
             e.printStackTrace();
         }
@@ -35,16 +35,15 @@ public class FileDatabase<T> extends ObjectPersistence<T> {
     @Override
     public List<T> read(Class<T> className) {
         String absoluteDirectory = this.makeDir(className.getSimpleName());
-        System.out.println(absoluteDirectory);
         List<T> objects = null;
         try {
             FileInputStream fis = new FileInputStream(absoluteDirectory);
-            if(fis.available() <= 0)    return null;
+            if(fis.available() <= 0) return null;
             ObjectInputStream ois = new ObjectInputStream(fis);
             objects = (List<T>) ois.readObject();
             ois.close();
             fis.close();
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Fail read file");
             e.printStackTrace();
         }

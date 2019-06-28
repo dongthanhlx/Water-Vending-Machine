@@ -3,5 +3,5 @@
   "session_timeout": 1000,
   "slack_channel_secret": "ajdkasyd8a67d8a7sa7da7",
   "max_file_size_upload": 200000,
-  "data_path": "./../data"
+  "data_path": "data"
 }

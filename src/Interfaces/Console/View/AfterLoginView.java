@@ -4,7 +4,9 @@ import App.Application;
 import App.Exceptions.AuthenticationRequiredException;
 import Domain.Entities.Account;
 import Domain.Entities.POS;
+import Interfaces.Console.Requests.Input;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -37,14 +39,24 @@ public class AfterLoginView extends AbstractView {
         System.out.println("3.  See cart");
         System.out.println("4.  Buy");
         System.out.println("5.  Exit");
-        System.out.print("Enter select(1-5) : ");
 
-        this.select = scanner.nextInt();
+//        this.select = scanner.nextInt();
+//
+//        while (this.select < 1 && this.select > 5) {
+//            System.out.print("Enter select(1-5) : ");
+//            this.select = scanner.nextInt();
+//        }
 
-        while (this.select < 1 && this.select > 5) {
-            System.out.print("Enter select(1-5) : ");
-            this.select = scanner.nextInt();
-        }
+        Input input = new Input();
+        this.select = input.scan(
+                "select(1-4)",
+                new ArrayList<>() {
+                    {
+                        add("required");
+                        add("numeric");
+                    }
+                }
+        ).toInt();
 
     }
 
@@ -56,14 +68,15 @@ public class AfterLoginView extends AbstractView {
         menuViews.put(3, new UserProfileView(currentAccount));
         menuViews.put(4, new BuyView(pos, currentAccount));
         menuViews.put(5, new ExitView());
-        if(select == menuViews.size()) return;
-        while(select < menuViews.size()) {
-            try {
-                menuViews.get(select).show();
-            } catch (AuthenticationRequiredException e) {
-                System.out.println("Authentication required");
-            } catch (Exception e) {
-                e.printStackTrace();
+        while(select != menuViews.size()) {
+            if(select > 0 && select < menuViews.size()) {
+                try {
+                    menuViews.get(select).show();
+                } catch (AuthenticationRequiredException e) {
+                    System.out.println("Authentication required");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
             this.menu();
         }

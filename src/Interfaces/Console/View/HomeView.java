@@ -22,7 +22,7 @@ public class HomeView extends AbstractView {
 
     @Override
     public void renderView() {
-        int selectedValue;
+        int selectedValue = 0;
         Map<Integer, AbstractView> menuViews = new HashMap<>();
         menuViews.put(1, new POSView(this.pos));
         menuViews.put(2, new LoginView());
@@ -30,16 +30,20 @@ public class HomeView extends AbstractView {
         menuViews.put(4, new ExitView());
 
         MenuView menuView = new MenuView();
-        do {
+
+        while (selectedValue != menuViews.size()) {
             menuView.screenSelection();
             selectedValue = menuView.getSelect();
-            try {
-                menuViews.get(selectedValue).show();
-            } catch (AuthenticationRequiredException e) {
-                e.printStackTrace();
-            } catch (Exception e) {
-                e.printStackTrace();
+            if(selectedValue >= 1 && selectedValue < menuViews.size()) {
+                try {
+                    menuViews.get(selectedValue).show();
+                } catch (AuthenticationRequiredException e) {
+                    e.printStackTrace();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
-        } while (selectedValue != menuViews.size());
+        }
     }
+
 }

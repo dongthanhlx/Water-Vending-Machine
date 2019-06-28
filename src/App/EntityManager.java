@@ -18,4 +18,5 @@ public class EntityManager<T> {
     public List<T> read(Class<T> className) {
         return this.objectPersistence.read(className);
     }
+
 }

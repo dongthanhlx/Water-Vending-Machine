@@ -4,7 +4,7 @@ import App.Application;
 import App.Exceptions.AuthenticationRequiredException;
 import App.Exceptions.Trading.MoneyNotEnoughException;
 import Domain.Entities.*;
-import Domain.Services.POSService;
+import App.Services.POSService;
 import Interfaces.Console.Requests.Input;
 
 import java.util.ArrayList;

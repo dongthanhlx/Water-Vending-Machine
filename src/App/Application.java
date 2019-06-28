@@ -1,6 +1,5 @@
 package App;
 
-import Domain.Entities.Account;
 import Domain.Entities.POS;
 import Infra.Data.FileDatabase;
 
@@ -12,7 +11,6 @@ public class Application {
     public static UserSession session = null;
     public static EntityManager entityManager = null;
     public static List poss = null;
-    public static List accounts = null;
 
     public static Configration config() {
         if(config == null) {
@@ -48,14 +46,6 @@ public class Application {
         }
 
         return poss;
-    }
-
-    public static List<Account> accountList(){
-        if(accounts == null){
-            accounts = new ArrayList();
-        }
-
-        return accounts;
     }
 
 }

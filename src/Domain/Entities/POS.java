@@ -42,23 +42,21 @@ public class POS implements Serializable {
         this.items.add(item);
     }
 
-    public int numberItems(){
+    public int numberItems() {
         return items.size();
     }
 
-    public void removeItems(Product product, int amount){
+    public void removeItems(Product product, int amount) {
         int numberItemsInPOS = items.size();
 
-        for (int i=0; i<numberItemsInPOS; i++){
+        for (int i=0; i<numberItemsInPOS; i++) {
             POSItem posItem = items.get(i);
 
-            if(posItem.getProduct().getId() == product.getId()){
+            if(posItem.getProduct().getId() == product.getId()) {
                 int balanceItemInPOS = posItem.getQuantity() - amount;
                 items.get(i).setQuantity(balanceItemInPOS);
             }
-
         }
-
     }
 
 }

@@ -23,6 +23,7 @@ public class Input {
             // Print form error
             if(formState == -1) {
                 System.out.println(error);
+                formState = 1;
             }
 
             // Print placeholder for input

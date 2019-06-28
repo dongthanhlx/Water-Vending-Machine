@@ -6,8 +6,7 @@ import java.util.ArrayList;
 public class Cart implements Serializable {
     ArrayList<BuyItem> buyItems = new ArrayList<>();
 
-    public Cart() {
-    }
+    public Cart() {}
 
     public Cart(ArrayList<BuyItem> buyItems) {
         this.buyItems = buyItems;

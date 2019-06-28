@@ -1,4 +1,4 @@
-package Domain.Services;
+package App.Services;
 
 import App.Application;
 import App.Exceptions.Trading.MoneyNotEnoughException;
@@ -32,7 +32,6 @@ public class POSService {
         poss.add(machine);
         accounts = Application.entityManager().read(Account.class);
         accounts.get(customerAccount.getId()).setBalance(customerAccount.getBalance());
-
     }
 
     public void save() {
@@ -48,10 +47,6 @@ public class POSService {
             this.save();
         }
         Application.posList().add(this.poss.get(0));
-    }
-
-    public void refresh(){
-
     }
 
     public void initPOS() {

@@ -1,7 +1,7 @@
 
 import App.Exceptions.AuthenticationRequiredException;
 import Domain.Entities.POS;
-import Domain.Services.POSService;
+import App.Services.POSService;
 import Interfaces.Console.View.*;
 
 

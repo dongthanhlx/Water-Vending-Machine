@@ -20,18 +20,6 @@ public class UserSession {
         return loggedIn;
     }
 
-    public void setLoggedIn(boolean loggedIn) {
-        this.loggedIn = loggedIn;
-    }
-
-    public int getAccountID() {
-        return accountID;
-    }
-
-    public void setAccountID(int accountID) {
-        this.accountID = accountID;
-    }
-
     public void setCurrentAccount(Account currentAccount) {
         this.accountID = currentAccount.getId();
         this.currentAccount = currentAccount;
@@ -48,4 +36,5 @@ public class UserSession {
     public Account getCurrentAccount() {
         return this.currentAccount;
     }
+
 }

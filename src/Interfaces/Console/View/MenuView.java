@@ -17,13 +17,23 @@ public class MenuView {
         System.out.println("2.  Login");
         System.out.println("3.  Register");
         System.out.println("4.  Exit");
-        System.out.print  ("Enter select(1-4) : ");
-        select = scanner.nextInt();
+//        select = scanner.nextInt();
+//
+//        while (select < 1 || select > 4) {
+//            System.out.print("Enter select(1-4) : ");
+//            select = scanner.nextInt();
+//        }
 
-        while (select < 1 || select > 4) {
-            System.out.print("Enter select(1-4) : ");
-            select = scanner.nextInt();
-        }
+        Input input = new Input();
+        select = input.scan(
+                "select(1-4) ",
+                new ArrayList<>() {
+                    {
+                        add("required");
+                        add("numeric");
+                    }
+                }
+        ).toInt();
 
     }
 
